@@ -2,12 +2,10 @@ const express = require("express");
 const app = express();
 var request = require('request-promise');
 
-const host = "https://api.bigbelly.com";
-const token = 'PxtFZzK5473bwBkxgTqT';
+const host = process.env.BIGBELLY_CLEAN_API;
+const token = process.env.X_TOKEN;
 
 app.get('/bigbelly/:route', (req, res) => {
-
-    // let route = 
 
     let mydata = async function getAlerts() {
         let options = {
@@ -17,7 +15,7 @@ app.get('/bigbelly/:route', (req, res) => {
         return await request(options);
     }
 
-    let done = mydata().then((results) => {
+    mydata().then((results) => {
         // console.log(results);
         res.send(results);
     }).catch(function (err) {
@@ -26,6 +24,6 @@ app.get('/bigbelly/:route', (req, res) => {
 
 });
 
-app.listen(process.env.PORT || 2017, () =>
+app.listen(process.env.NODE_PORT || 2017, () =>
     console.log(`\nServing application on port ${process.env.PORT || 2017}\n`)
 );
