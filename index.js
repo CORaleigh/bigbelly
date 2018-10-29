@@ -7,6 +7,9 @@ const token = process.env.X_TOKEN;
 
 app.get('/bigbelly/:route', (req, res) => {
 
+    // valid routes from api docs are:
+    // accounts, collectionSummary, assets, alerts, collectionReady 
+
     let mydata = async function getAlerts() {
         let options = {
             url: `${host}/api/v2?objectType=${req.params.route}&action=load&accountFilter=388`,
