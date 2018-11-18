@@ -7,8 +7,6 @@ const pedhost = "https://apieco.eco-counter-tools.com";
 const bigbellytoken = process.env.X_TOKEN;
 const pedtoken = 'Bearer b677de8fb7e673a0b6d194d4f4b8af63';
 
-let mergeObj = [];
-
 app.get('/bigbelly/:route', (req, res) => {
 
     // valid routes from api docs are:
@@ -57,20 +55,13 @@ app.get('/pedcounter/:route', (req, res) => {
             pedCountData().then((countResults) => {
                 let counts = JSON.parse(countResults);
                 counts.forEach((cntValue) => {
-                    mergeObj.push({ "siteId": value.id, "name": value.name, "longitude": value.longitude, "latitude": value.latitude, "pedcnt": cntValue.counts });
-                    // mergeObj.push({"pedcnt": cntValue.counts});
-
-                    // const arr3 = [...mergeObj, ...arr2] //arr3 ==> [1,2,3,4,5,6]
-
-                    console.log('mergeObj = ', mergeObj);
-                    res.send(mergeObj);
-
+                console.log('value = ', cntValue.counts);
                 });
             }).catch(function (err) {
                 console.log('err = ', err);
             });
         });
-        // res.send(results);
+        res.send(results);
     }).catch(function (err) {
         console.log('err = ', err);
     });
